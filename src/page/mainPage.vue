@@ -24,7 +24,7 @@
           <img
             src="../../static/img/tx.png"
             alt=""
-            srcset=""
+            srcset=""value1
             class="photoPerson"
           />
           <span>管理员：00880</span>
@@ -60,135 +60,26 @@ export default {
   // components: { indexCom, CommodityCom },
   // components: {  
   //   // CommodityCom, SaleCom, AdsCom ,
-  //   AddCommodity,
+  //   // AddCommodity,
   //   AddAds },
 
   data() {
     return {
-      value1: "",
+      // value1: "",
       flag:false,
     };
   },
   methods: {
-    myEcharts() {
-      // 基于准备好的dom，初始化echarts实例
-      var myChart = this.$echarts.init(document.getElementById("main"));
-
-      // 指定图表的配置项和数据
-      var xDataArr = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-      var yDataArr1 = [120, 132, 101, 134, 90, 230, 210];
-      var yDataArr2 = [20, 82, 191, 94, 290, 330, 310];
-
-      var option = {
-        grid: {
-          top: "25%",
-          left: "3%",
-          right: "4%",
-          bottom: "1%",
-          containLabel: true, //x轴显示
-        },
-        legend: {
-          data: ["访客量", "成交量"],
-          type: "plain",
-          left: 50,
-          top: 18,
-        },
-        xAxis: {
-          type: "category",
-          data: xDataArr,
-        },
-        yAxis: {
-          type: "value",
-          scale: true,
-          axisLine: {
-            show: false,
-          },
-        },
-        series: [
-          {
-            name: "访客量",
-            type: "line",
-            data: yDataArr1,
-            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任 意写
-            smooth: true,
-            symbol: "none",
-          },
-          {
-            name: "成交量",
-            type: "line",
-            data: yDataArr2,
-            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任意 写
-            smooth: true,
-            symbol: "none",
-          },
-        ],
-        // label:{
-        //     show:true
-        // }
-      };
-
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-    },
-    echartsTwo() {
-      // 基于准备好的dom，初始化echarts实例
-      var myChart = this.$echarts.init(document.getElementById("mainFr"));
-
-      // 指定图表的配置项和数据
-      var xDataArr = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-      var yDataArr1 = [120, 132, 101, 134, 90, 230, 210];
-
-      var option = {
-        grid: {
-          top: "35%",
-          left: "3%",
-          right: "4%",
-          bottom: "1%",
-          containLabel: true, //x轴显示
-        },
-        xAxis: {
-          type: "category",
-          data: xDataArr,
-        },
-        yAxis: {
-          type: "value",
-          scale: true,
-          axisLine: {
-            show: false,
-          },
-        },
-        series: [
-          {
-            name: "访客量",
-            type: "bar",
-            data: yDataArr1,
-            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任 意写
-            // smooth: true,
-            symbol: "none",
-            itemStyle: {
-              borderRadius: [5, 5, 0, 0],
-            },
-            barWidth: 8,
-            color: "rgba(43, 193, 123, 1)",
-          },
-        ],
-        // label:{
-        //     show:true
-        // }
-      };
-
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-    },
+    
     tabHidden(){
       this.flag = !this.flag
       console.log(this.flag);
     }
   },
-  mounted() {
-    this.myEcharts();
-    this.echartsTwo();
-  },
+  // mounted() {
+  //   this.myEcharts();
+  //   this.echartsTwo();
+  // },
 };
 </script>
 

@@ -8,7 +8,14 @@
     <div class="img">
       <label>封面图片</label>
       <!-- 替换一下 -->
-      <img src="../../static/img/btn.png" alt="" />
+      <!-- <img src="../../static/img/btn.png" alt="" /> -->
+      <div>
+        <div class="addPic">
+          <img src="../../static/img/add.png" alt="" />
+          <span>上传照片</span>
+        </div>
+        <span>只能上传jpg/png文件，且不超过500kb</span>
+      </div>
     </div>
     <div class="status">
       <label>商品限制</label>
@@ -63,8 +70,30 @@ export default {};
     }
   }
   .img {
+    display: flex;
     & img {
       vertical-align: top;
+    }
+    .addPic {
+      width: 225px;
+      height: 150px;
+      background-color: #fff;
+      border: 1px dotted rgba(184, 196, 209, 1);
+      border-radius: 4px;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: space-evenly;
+      box-sizing: border-box;
+      padding-top: 20px;
+      & span {
+        // font-size: 14px;
+        color: rgba(153, 153, 153, 1);
+      }
+    }
+    & span{
+      font-size: 14px;
+      color: rgba(102, 102, 102, 1);
     }
   }
   .time {

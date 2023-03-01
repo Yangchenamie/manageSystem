@@ -2,7 +2,7 @@
   <div class="conItem">
       <div class="itemDataAll">
         <div class="itemBox oneBg">
-          <img src="../../static/img/one-top.png" alt="" />
+          <img src="../../static/img/one-top.png" alt="" class="onetopImg" />
           <img src="../../static/img/one.png" alt="" class="oneAbImg" />
           <img
             src="../../static/img/one-buttom.png"
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="itemBox twoBg">
-          <img src="../../static/img/two-top.png" alt="" />
+          <img src="../../static/img/two-top.png" alt="" class="onetopImg" />
           <img src="../../static/img/two.png" alt="" class="oneAbImg" />
           <img
             src="../../static/img/two-bottom.png"
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="itemBox threeBg">
-          <img src="../../static/img/three-top.png" alt="" />
+          <img src="../../static/img/three-top.png" alt="" class="onetopImg"/>
           <img src="../../static/img/three.png" alt="" class="oneAbImg" />
           <img
             src="../../static/img/three-bottom.png"
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="itemBox fourBg">
-          <img src="../../static/img/four-top.png" alt="" />
+          <img src="../../static/img/four-top.png" alt="" class="onetopImg"/>
           <img src="../../static/img/four.png" alt="" class="oneAbImg" />
           <img
             src="../../static/img/four-bottom.png"
@@ -127,7 +127,7 @@
           <div id="mainFr" style="width: 100%; height: 349px"></div>
           <div class="twoData">
             <span>日期</span>
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            <el-date-picker v-model="value2" type="date" placeholder="选择日期">
             </el-date-picker>
           </div>
         </div>
@@ -137,7 +137,129 @@
 
 <script>
 export default {
-    // name:"indexCom"
+  data(){
+    return{
+      value1:"",
+      value2:""
+    }
+  },
+  methods:{
+      myEcharts() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = this.$echarts.init(document.getElementById("main"));
+
+      // 指定图表的配置项和数据
+      var xDataArr = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+      var yDataArr1 = [120, 132, 101, 134, 90, 230, 210];
+      var yDataArr2 = [20, 82, 191, 94, 290, 330, 310];
+
+      var option = {
+        grid: {
+          top: "25%",
+          left: "3%",
+          right: "4%",
+          bottom: "1%",
+          containLabel: true, //x轴显示
+        },
+        legend: {
+          data: ["访客量", "成交量"],
+          type: "plain",
+          left: 50,
+          top: 18,
+        },
+        xAxis: {
+          type: "category",
+          data: xDataArr,
+        },
+        yAxis: {
+          type: "value",
+          scale: true,
+          axisLine: {
+            show: false,
+          },
+        },
+        series: [
+          {
+            name: "访客量",
+            type: "line",
+            data: yDataArr1,
+            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任 意写
+            smooth: true,
+            symbol: "none",
+          },
+          {
+            name: "成交量",
+            type: "line",
+            data: yDataArr2,
+            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任意 写
+            smooth: true,
+            symbol: "none",
+          },
+        ],
+        // label:{
+        //     show:true
+        // }
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    },
+    echartsTwo() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = this.$echarts.init(document.getElementById("mainFr"));
+
+      // 指定图表的配置项和数据
+      var xDataArr = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+      var yDataArr1 = [120, 132, 101, 134, 90, 230, 210];
+
+      var option = {
+        grid: {
+          top: "35%",
+          left: "3%",
+          right: "4%",
+          bottom: "1%",
+          containLabel: true, //x轴显示
+        },
+        xAxis: {
+          type: "category",
+          data: xDataArr,
+        },
+        yAxis: {
+          type: "value",
+          scale: true,
+          axisLine: {
+            show: false,
+          },
+        },
+        series: [
+          {
+            name: "访客量",
+            type: "bar",
+            data: yDataArr1,
+            stack: "all", // series中的每一个对象配置相同的stack值, 这个all可以任 意写
+            // smooth: true,
+            symbol: "none",
+            itemStyle: {
+              borderRadius: [5, 5, 0, 0],
+            },
+            barWidth: 8,
+            color: "rgba(43, 193, 123, 1)",
+          },
+        ],
+        // label:{
+        //     show:true
+        // }
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    },
+
+  },
+  mounted(){
+    this.myEcharts()
+    this.echartsTwo()
+  }
 }
 </script>
 
@@ -150,24 +272,36 @@ export default {
     margin-bottom: 30px;
     .itemDataAll {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       .itemBox {
         position: relative;
-        width: 210px;
+        min-width: 210px;
+        max-width: 300px;
         height: 150px;
         color: #fff;
         font-size: 12px;
+        margin-bottom: 10px;
+        flex: 1;
+        margin: 0 25px 10px;
+        .onetopImg{
+          width: 40%;
+        }
         .oneAbImg {
           position: absolute;
           z-index: 99;
-          left: 25px;
-          top: 50px;
-          width: 50px;
+          // left: 25px;
+          left: 10%;
+          // top: 50px;
+          top: 28%;
+          // width: 50px;
+          width: 20%;
         }
         .onebuttomAbImg {
           position: absolute;
           right: 0;
           bottom: 0;
+          width: 50%;
         }
         .itemText {
           position: absolute;
@@ -221,7 +355,7 @@ export default {
       background-color: #fff;
       padding: 42px 37px 0;
       box-sizing: border-box;
-      height: 257px;
+      // height: 257px;
       & p {
         margin: 0;
         font-size: 18px;
@@ -240,7 +374,11 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-top: 50px;
+        flex-wrap: wrap;
         .time-item {
+          flex:1;
+          min-width: 144px;
+          margin:  0 20px 20px;
           & span {
             font-size: 12px;
             color: rgba(153, 153, 153, 1);
@@ -250,12 +388,17 @@ export default {
             }
           }
           .itemTimeBox {
+            width: 100%;
             display: flex;
             align-items: center;
+            & img{
+              width: 40%;
+              max-width: 80px !important;
+            }
             .itemTimeText {
               display: flex;
               flex-flow: column;
-              margin-left: 15px;
+              margin-left: 25px;
               .timeTitle {
                 font-size: 14px;
                 color: rgba(51, 51, 51, 1);
@@ -272,10 +415,11 @@ export default {
     .itemStats {
       display: flex;
       justify-content: space-between;
-      margin-top: 50px;
+      flex-wrap: wrap;
       .itemStatsFl {
+        margin-top: 50px;
         position: relative;
-        flex: 0.5;
+        // flex: 0.5;
         background-color: #fff;
         .itemStatsFlTab {
           position: absolute;
@@ -303,6 +447,7 @@ export default {
         }
       }
       .itemStatsFr {
+        margin-top: 50px;
         position: relative;
         // flex: 0.45;
         width: 410px;

@@ -26,13 +26,13 @@
     <div class="middle">
       <div class="middleCon">
         <div class="middleTab">
-          <input type="radio" name="situation" value="0" checked="checked" />
+          <input type="radio" name="situation" value="0" checked="checked" @click="changeTab" />
           <label>司机情况</label>
-          <input type="radio" name="situation" value="1" />
+          <input type="radio" name="situation" value="1"  @click="changeTab" />
           <label>站场情况</label>
         </div>
         <div class="middleTable">
-            <!-- <table>
+            <table v-if="this.flag">
                 <tr>
                     <th>机器编码</th>
                     <th>用户名</th>
@@ -152,8 +152,8 @@
                         <a href="javaScript:;" class="action">停用</a>
                     </td>
                 </tr>
-            </table> -->
-            <table>
+            </table>
+            <table v-else>
                 <tr>
                     <th>站场编码</th>
                     <th>站场名</th>
@@ -295,7 +295,16 @@
 
 <script>
 export default {
-  // name:"indexCom"
+  data(){
+    return{
+      flag:true
+    }
+  },
+  methods:{
+    changeTab(){
+      this.flag = !this.flag
+    }
+  }
 };
 </script>
 
