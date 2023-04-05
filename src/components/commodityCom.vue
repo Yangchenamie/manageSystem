@@ -1,157 +1,15 @@
 <template>
   <div class="conItem">
-    <!-- <div class="conItemTab">
-      <div class="tabItem">
-        <span>商品状态</span>
-        <select>
-          <option>全部</option>
-          <option>全部</option>
-          <option>全部</option>
-        </select>
-      </div>
-      <div class="tabItem">
-        <span>商品类型</span>
-        <select>
-          <option>全部</option>
-          <option>全部</option>
-          <option>全部</option>
-        </select>
-      </div>
-      <div class="tabItem">
-        <span>商品名称</span>
-        <input type="text" placeholder="请输入您想查询的关键词" />
-        <button>查询</button>
-      </div>
-    </div> -->
-    <!-- <div class="middle">
-      <div class="middleCon">
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-        <div class="middleItem">
-          <div class="circle"></div>
-          <img src="../../static/img/coke.png" alt="" />
-          <span>可口可乐350ml</span>
-          <span class="itemMoney">￥3.5</span>
-          <div class="btn">
-            <button>编辑</button>
-            <button>下架</button>
-          </div>
-        </div>
-      </div>
-      <div class="pagerBox">
-        <div><</div>
-        <div>1</div>
-        <div class="active">2</div>
-        <div>3</div>
-        <div>></div>
-      </div>
-    </div> -->
     <!-- 第一种 -->
     <!--center 显示中心位置 lng经度 lat纬度     zoom 视图的缩放比例 -->
     <!-- <!- scroll-wheel-zoom是否允许用鼠标滚轮缩放 -->
-    <baidu-map
-      class="map"
-      :center="{ lng: 121.4095, lat: 31.1796 }"
-      :zoom="15"
-      :scroll-wheel-zoom="true"
-    >
+    <baidu-map class="map" :center="{ lng: 113.280637, lat: 23.125178 }" :zoom="15" :scroll-wheel-zoom="true">
       <!--地图类型，两种：一种是路线一种是绿的那种-->
       <!-- <bm-map-type :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']" anchor="BMAP_ANCHOR_TOP_LEFT"></bm-map-type> -->
       <!--是否显示标注-->
       <!-- <div v-if="locationFlag"> -->
-      <bm-marker
-        :position="{ lng: 113.67669, lat: 24.780387 }"
-        :dragging="true"
-        @click="showInfo"
-      />
+      <bm-marker v-for="(item, index) in mapList" :key="index" :position="{ lng: item.location.x, lat: item.location.y }"
+        :dragging="true" @click="showInfo(item.supplementNumber,item.name)" />
       <!-- <bm-info-window
         :position="{ lng: 113.67669, lat: 24.780387 }"
         title="星星充电汽车充电站"
@@ -180,23 +38,19 @@
       <!-- </div> -->
       <!--搜索功能-->
       <!--display: none样式很关键，因为下面默认会有地址提示信息很长，很烦，这样搜索会很舒服，-->
-      <bm-local-search
+      <!-- <bm-local-search
         :keyword="keyword"
         :auto-viewport="true"
         zoom="12.8"
         style="display: none"
-      ></bm-local-search>
+      ></bm-local-search> -->
       <!-- <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation> -->
-      <bm-geolocation
-        anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
-        :showAddressBar="true"
-        :autoLocation="true"
-      ></bm-geolocation>
+      <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>
     </baidu-map>
     <div class="searchBox">
       <div class="SEarch">
-        <el-input
-          v-model="Search"
+        <!-- <el-input
+          v-model="SearchKw"
           placeholder="请输入您的目标地点"
           @input="search($event)"
           class="searInput"
@@ -205,55 +59,40 @@
           type="primary"
           icon="el-icon-search"
           class="SEARCH"
-          @click="searchs()"
-        ></el-button>
+          @click="getSearchList"
+        ></el-button> -->
+        <input type="text" placeholder="请输入您想查询的关键词" v-model="SearchKw" @blur="lostBlur()" />
+        <button @click="getSearchList">查询</button>
       </div>
       <!-- 数据容器 -->
-      <div id="rResult">
-        <p class="title">星星充电汽车充电站</p>
+      <div class="rResult" v-if="flag">
+        <p class="title" >{{ shopName }}</p>
         <div class="infoBox">
-          <div class="infoItem">
-            <img src="../../static/img/coke.png" alt="" />
+          <div class="infoItem" v-for="(item,index) in goodsList" :key="index">
+            <div class="infoFl">
+              <img :src="item.productPicture" alt="" />
             <div class="goods">
-              <p>可口可乐350ml</p>
-              <p> $3.5</p>
+              <p>{{ item.productName }}</p>
+              <p> {{ item.productPrice }}</p>
+            </div>
             </div>
             <button @click="clear">下架</button>
           </div>
-          <div class="infoItem">
-            <img src="../../static/img/coke.png" alt="" />
-            <div class="goods">
-              <p>可口可乐350ml</p>
-              <p> $3.5</p>
-            </div>
-            <button @click="clear">下架</button>
-          </div>
-          <div class="infoItem">
-            <img src="../../static/img/coke.png" alt="" />
-            <div class="goods">
-              <p>可口可乐350ml</p>
-              <p> $3.5</p>
-            </div>
-            <button @click="clear">下架</button>
-          </div>
-          <div class="infoItem">
-            <img src="../../static/img/coke.png" alt="" />
-            <div class="goods">
-              <p>可口可乐350ml</p>
-              <p> $3.5</p>
-            </div>
-            <button @click="clear">下架</button>
-          </div>
-          <div class="infoItem">
-            <img src="../../static/img/coke.png" alt="" />
-            <div class="goods">
-              <p>可口可乐350ml</p>
-              <p> $3.5</p>
-            </div>
-            <button @click="clear">下架</button>
-          </div>
+          
         </div>
       </div>
+      <div  class="rResult" v-else>
+          <p class="title">搜索结果</p>
+        <div class="infoBox">
+          <div class="infoItem" v-for="(item, index) in searchList">
+            <img :src="item.picture" alt="" />
+            <div class="goods">
+              <p>{{ item.name }}</p>
+              <p>{{ item.address }}</p>
+            </div>
+          </div>
+        </div>
+        </div>
     </div>
     <!-- 第二种 -->
   </div>
@@ -284,21 +123,27 @@ export default {
         lng: 120.211486,
         lat: 30.256576,
       },
-      keyword: "", //搜索框关键词
+      // keyword: "", //搜索框关键词
       locationFlag: "",
       infoWindow: {
         show: false,
         // contents:
         //   "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       },
+      mapList: [],
+      SearchKw: '',
+      searchList: [],
+      goodsList:[],
+      flag:true,
+      shopName:''
     };
     // 第二种
   },
+  mounted() {
+    this.getMapList()
+
+  },
   methods: {
-    //第一种
-    // searchLocal() {
-    //   this.keyword = this.keywordReady
-    // },
     onChange(e) {
       const one = chinaData[e[0]];
       const two = chinaData[e[1]];
@@ -313,36 +158,18 @@ export default {
     clear() {
       this.infoWindow.contents = "";
     },
-    showInfo() {
-      this.infoWindow.show = true;
-    },
-    // getPoint(e) {    //点击地图获取一些信息，
-    //   console.log('e', e)
-    //   this.show = true;
-    //   this.postionMap.lng = e.point.lng;     //通过  e.point.lng获取经度
-    //   this.postionMap.lat = e.point.lat;     //通过  e.point.lat获取纬度
-    //   this.add.jd = e.point.lng;
-    //   this.add.wd = e.point.lat;
-    //   this.zoom = e.target.getZoom()
+    async showInfo(supplementNumber,name) {
 
-    //   let geocoder = new BMap.Geocoder();  //创建地址解析器的实例
-    //   geocoder.getLocation(e.point, rs => {
-    //     // if (!this.locationFlag) {				//地图标注为false时，不让位置在搜索框中显示
-    //     //   return true
-    //     // }
-    //     this.keywordReady = rs.address;
-    //     //地址描述(string)
-    //     console.log(rs.address);    //这里打印可以看到详细地址信息
-    //     console.log(rs.addressComponents);//结构化的地址描述(object)
-    //     console.log(rs.addressComponents.province); //省
-    //     console.log(rs.addressComponents.city); //城市
-    //     console.log(rs.addressComponents.district); //区县
-    //     console.log(rs.addressComponents.street); //街道
-    //     console.log(rs.addressComponents.streetNumber); //门牌号
-    //     console.log(rs.surroundingPois); //附近的POI点(array)
-    //     console.log(rs.business); //商圈字段，代表此点所属的商圈(string)
-    //   });
-    // },
+      this.shopName = name
+      console.log(supplementNumber);
+      const res = await this.$http({
+        // url:`/supplement/product/selectAll/${supplementNumber}`
+        url:"/supplement/product/selectAll/8007"
+      })
+      this.goodsList = res.data.data.list
+      console.log(this.goodsList);
+      this.flag = true
+    },
     //出现标注地址
     getFlag() {
       this.locationFlag = true;
@@ -351,10 +178,32 @@ export default {
     cancelFlag() {
       this.locationFlag = false;
     },
+    async getMapList() {
+      const res = await this.$http({
+        url: '/map/selectAll'
+      })
+      console.log(res);
+      this.mapList = res.data.data.list
+      console.log(this.mapList);
+    },
+    lostBlur() {
+      console.log(this.SearchKw);
+      const kw = this.SearchKw
+    },
+    async getSearchList() {
 
-    // 创建标记
-
-    //第二种
+      console.log('-00000',this.SearchKw);
+      const kw = this.SearchKw
+      const res = await this.$http({
+        url: `/map/selectName?name=${kw}`,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      console.log('搜索',res);
+      this.searchList = res.data.data.list
+      this.flag = false
+    }
   },
 };
 </script>
@@ -373,6 +222,7 @@ export default {
     width: 100%;
     height: 800px;
   }
+
   .conItemTab {
     display: flex;
     margin-bottom: 90px;
@@ -508,21 +358,42 @@ export default {
     height: 320px;
     overflow: hidden;
     overflow-y: scroll;
+
     .infoItem {
       display: flex;
       align-items: center;
       margin-bottom: 10px;
       justify-content: space-between;
+
+      & .infoFl{
+        display: flex;
+        flex-flow:row;
+        align-items: center;
+      }
+
       & img {
         width: 75px;
         height: 75px;
       }
-      .goods{
+
+      .goods {
         display: flex;
         flex-flow: column;
         height: 100%;
-        justify-content: space-evenly
+        justify-content: space-evenly;
+        margin-left: 20px;
+
+        & p {
+          overflow: hidden;
+          /*超出部分隐藏*/
+          white-space: nowrap;
+          /*禁止换行*/
+          text-overflow: ellipsis;
+          /*省略号*/
+
+        }
       }
+
       & button {
         width: 70px;
         height: 32px;
@@ -535,36 +406,58 @@ export default {
       }
     }
   }
+
   .searchBox {
+    width: 350px;
     position: absolute;
     z-index: 999;
     top: 60px;
     left: 80px;
-    .title{
+
+    .title {
       line-height: 60px;
-      
+      height: 60px;
     }
-    & p{
+
+    & p {
       margin: 0 !important;
     }
+
+    & input {
+      width: 230px;
+      height: 32px;
+      border: 1px solid rgba(229, 229, 229, 1);
+      box-sizing: border-box;
+      margin-right: 23px;
+      padding: 0 12px;
+    }
+
+    & button {
+      width: 70px;
+      height: 32px;
+      background-color: rgba(6, 107, 100, 1);
+      border: none;
+      color: #fff;
+      border-radius: 3px;
+    }
+
     .SEarch {
       display: flex;
+
       .searInput {
         width: 300px;
       }
-      .SEARCH {
-      }
     }
-    #rResult {
+
+    .rResult {
       background-color: #fff;
       // height: 99px;
       width: 100%;
       margin-top: 20px;
       height: 390px;
-      padding-left: 20px;
+      padding:0 15px;
       box-sizing: border-box;
       border-radius: 10px;
     }
   }
-}
-</style>
+}</style>

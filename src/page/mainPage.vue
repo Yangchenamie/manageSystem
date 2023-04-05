@@ -4,12 +4,12 @@
       <h3>烧烤后台统一管理系统</h3>
       <ul>
         <li>
-          <router-link to="/index" active-class="active">首页</router-link></li>
+          <router-link to="/screenPage/index" active-class="active">首页</router-link></li>
         <li>
-          <router-link to="/commodity" active-class="active">商品管理</router-link>
+          <router-link to="/screenPage/commodity" active-class="active">商品管理</router-link>
         </li>
-        <li><router-link to="/sale" active-class="active">销售管理</router-link></li>
-        <li><router-link to="/ads" active-class="active">广告管理</router-link></li>
+        <li><router-link to="/screenPage/sale" active-class="active">销售管理</router-link></li>
+        <li><router-link to="/screenPage/ads" active-class="active">广告管理</router-link></li>
       </ul>
     </div>
     <div class="containerRight" :class="this.flag == true ? 'noMargin' : ''">
@@ -21,17 +21,18 @@
         <div class="conTabFr">
           <img src="../../static/img/know.png" alt="" srcset="" />
           <img src="../../static/img/tip.png" alt="" srcset="" />
-          <img
+          <!-- <img
             src="../../static/img/tx.png"
             alt=""
-            srcset=""value1
+            srcset="value1"
             class="photoPerson"
-          />
-          <span>管理员：00880</span>
+          /> -->
+          <span class="text-avatar">{{ name }}</span>
+          <span>管理员：{{ name }}</span>
           <img src="../../static/img/down.png" alt="" />
           <div class="border"></div>
           <img src="../../static/img/exit.png" alt="" />
-          <span>退出</span>
+          <span @click="exit('loginPage')">退出</span>
         </div>
       </div>
       <div class="conItemBox">
@@ -67,6 +68,7 @@ export default {
     return {
       // value1: "",
       flag:false,
+      name:''
     };
   },
   methods: {
@@ -74,12 +76,17 @@ export default {
     tabHidden(){
       this.flag = !this.flag
       console.log(this.flag);
+    },
+    exit(url){
+      this.$router.replace({
+        name:url
+      })
     }
   },
-  // mounted() {
-  //   this.myEcharts();
-  //   this.echartsTwo();
-  // },
+  mounted() {
+   console.log('====', this.$route.query.username);
+   this.name = this.$route.query.username[0].toUpperCase()
+  },
 };
 </script>
 
@@ -190,4 +197,18 @@ html {
     margin-left: 0 !important;
     
   }
+  .text-avatar{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    background-color: #009688;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+    top: 4px;
+    margin-right: 10px;
+    color: #Fff;
+}
 </style>

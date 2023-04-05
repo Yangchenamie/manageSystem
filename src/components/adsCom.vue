@@ -1,5 +1,6 @@
 <template>
-  <div class="conItem">
+  <div>
+    <div class="conItem" v-if="flag">
     <div class="conItemTab">
       <div class="tabItem">
         <span>广告状态</span>
@@ -10,17 +11,12 @@
         </select>
       </div>
       <div class="tabItem">
-        <span>广告类型</span>
-        <select>
-          <option>全部</option>
-          <option>全部</option>
-          <option>全部</option>
-        </select>
-      </div>
-      <div class="tabItem">
         <span>广告标语</span>
         <input type="text" placeholder="请输入您想查询的关键词" />
         <button>查询</button>
+      </div>
+      <div class="btn" @click="flag = false">
+        +新增商品
       </div>
     </div>
     <div class="middle">
@@ -35,101 +31,11 @@
                     <th>投放状态</th>
                     <th>操作</th>
                 </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="javaScript:;">停用</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>淘我喜欢</td>
-                    <td><img src="../../static/img/5.png" alt=""></td>
-                    <td>2023.2.20-2023.4.20</td>
-                    <td>2s</td>
+                <tr v-for="(item,index) in vdeioList" :key="index">
+                    <td class="text">{{ item.title }}</td>
+                    <td><img :src="item.coverURL" alt=""></td>
+                    <td>{{ item.createTime }}</td>
+                    <td>{{ item.duration }}s</td>
                     <td>正常</td>
                     <td>
                         <a href="javaScript:;">停用</a>
@@ -139,25 +45,92 @@
         </div>
       </div>
       <div class="pagerBox">
-        <div><</div>
-        <div>1</div>
-        <div class="active">2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
-        <div>9</div>
-        <div>></div>
+        <div @click="lastPages">&lt;</div>
+        <div
+          v-for="(item, index) in array"
+          :key="index"
+          :class="item == current ? 'active' : ''"
+          @click="changePage(item)"
+        >
+          {{ item }}
+        </div>
+        <div @click="nextPages">></div>
       </div>
     </div>
+  </div>
+  <AddAds v-else @change="changeFlag($event)"></AddAds>
   </div>
 </template>
 
 <script>
+import AddAds from './addAds.vue';
+
 export default {
-  // name:"indexCom"
+    // name:"indexCom"
+    data() {
+        return {
+            vdeioList: {},
+            flag: true,
+            array: [],
+            current: 1,
+            adsNum:0
+        };
+    },
+    mounted() {
+      this.getAdsNum()
+        this.getAdsList();
+        
+    },
+    methods: {
+      changeFlag(val){
+        this.flag  = val
+      },
+        async getAdsNum(){
+          const {data} = await this.$http({
+            url:"/manage/video/getPlayNumber"
+          })
+          this.adsNum = data.data.number
+          this.getPages(this.adsNum)
+        },
+        getPages(val){
+          const num = Math.ceil(val / 10)
+          console.log(num);
+          for(let i=1;i<=num;i++){
+            this.array.push(i);
+          }
+          console.log(this.array);
+        },
+        async getAdsList(id) {
+            if (id == null) {
+                id = 1;
+            }
+            const { data } = await this.$http({
+                url:`/manage/video/getPlayAuthPages/${id}`
+            });
+            console.log(data);
+            this.vdeioList = data.data.videoList;
+            console.log(this.vdeioList);
+        },
+        changePage(index) {
+            this.current = index;
+                this.getAdsList(this.current);
+
+        },
+        lastPages() {
+            if (this.current == 1) {
+                return;
+            }
+            this.current--;
+            this.getAdsList(this.current);
+        },
+        nextPages() {
+            if (this.current == 9)
+                return;
+            this.current++;
+            this.getAdsList(this.current);
+        }
+    },
+    components: { AddAds }
 };
 </script>
 
@@ -171,6 +144,17 @@ export default {
   .conItemTab {
     display: flex;
     margin-bottom: 50px;
+    & .btn{
+      margin-left: 30px;
+      height: 32px;
+      width: 112px;
+      line-height: 32px;
+      font-size: 14px;
+      color: #fff;
+        background-color: rgba(0, 186, 173, 1);
+        border-radius: 3px;
+        text-align: center;
+      }
     .tabItem {
       margin-right: 42px;
       color: rgba(166, 166, 166, 1);
@@ -229,6 +213,12 @@ export default {
             // justify-content: space-between;
             // flex-flow: column;
             // align-items: center;
+            & .text{
+              padding-left: 10px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
             & tr{
                 display: flex;
                 width: 100%;
